@@ -8,27 +8,26 @@ def read_hpgl(file_path):
         return file.read().replace('\n', '')
 
 def parse_hpgl(data):
-    # 使用正则表达式解析所有HPGL命令
     commands = re.findall(r'[A-Z]{2}[^;]*;', data)
     return [command.strip() for command in commands]
 
 def plot_hpgl(commands):
     x, y = [], []
-    max_y = 0  # 用来记录Y坐标的最大值
+    max_y = 0  
     pen_down = False
-    text_size = (0.400, 0.700)  # 默认文本大小
+    text_size = (0.400, 0.700)  
     fig, ax = plt.subplots()
-    current_color = 'b'  # 默认为蓝色
+    current_color = 'b'
     transform = transforms.Affine2D()  # 初始化变换
 
-    # 首先遍历一遍命令，找出Y坐标的最大值
+    #
     for command in commands:
         coords = re.findall(r'\d+', command[2:])
         y_coords = list(map(int, coords[1::2]))
         if y_coords:
             max_y = max(max_y, max(y_coords))
 
-    # 再次遍历命令进行绘图
+   
     for command in commands:
         cmd_type = command[:2]
         params = command[2:].strip(';')
