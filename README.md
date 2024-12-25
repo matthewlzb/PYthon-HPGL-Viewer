@@ -11,4 +11,5 @@ Command-line usage:
 Run the script with a single argument specifying the path to the HPGL file:
 
 python hpglview.py <hpgl_file>
+
 Replace <hpgl_file> with the path to your .plt or HPGL file.
